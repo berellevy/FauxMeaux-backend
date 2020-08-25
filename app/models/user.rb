@@ -5,6 +5,10 @@ class User < ApplicationRecord
     has_many :followee_joins, class_name: "Follow", foreign_key: "follower_id"
     has_many :followees, through: :followee_joins
 
+    has_many :posts
+    has_many :comments
+
+
     def follow(user_id)
         followees << User.find(user_id)
     end

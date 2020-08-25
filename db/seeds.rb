@@ -28,9 +28,9 @@ additional_images_url_params = [
 # response = RestClient.get(additional_images_url+additional_images_url_params) 
 # response_hash = JSON.parse(response.body)
 
-User.create(
-    name: "greg",
-    username: "greg",
-    avatar: "https://media-exp1.licdn.com/dms/image/C5603AQFb-SyZRxKFnQ/profile-displayphoto-shrink_400_400/0?e=1603929600&v=beta&t=g0edTpUYarx7iS-t8C1UX715vHDZc6z9WfI2-2Ge6gA",
-    bio: "I am the coolest instructor ever"
-)
+# User.create(
+#     name: "greg",
+#     username: "greg",
+#     avatar: "https://media-exp1.licdn.com/dms/image/C5603AQFb-SyZRxKFnQ/profile-displayphoto-shrink_400_400/0?e=1603929600&v=beta&t=g0edTpUYarx7iS-t8C1UX715vHDZc6z9WfI2-2Ge6gA",
+#     bio: "I am the coolest instructor ever"
+# )

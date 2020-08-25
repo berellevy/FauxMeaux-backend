@@ -1,5 +1,24 @@
 # README
 
+## Completed
+
+- brickset api rough setup
+
+- users & follow capability
+
+
+## To Do
+
+- set up posts
+    - test relationships with users
+
+- set up comments
+    - test rel. with users and posts
+
+
+
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
