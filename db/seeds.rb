@@ -1,7 +1,36 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'rest-client'
+require 'pry'
+require 'json'
+
+brickset_key =  ENV["brickset_key"]
+brickset_username =  ENV["brickset_username"]
+brickset_password =  ENV["brickset_password"]
+brickset_user_hash =  ENV["brickset_user_hash"]
+
+base_url = "https://brickset.com/api/v3.asmx"
+themes_url = base_url + "/getThemes?"
+sets_url = base_url + "/getSets?"
+additional_images_url = base_url + "/getAdditionalImages?"
+
+years = "'" + (2010..2020).to_a.join(",")+"'"
+
+get_sets_url_params = [
+    "apiKey=#{brickset_key}",
+    "userHash=#{brickset_user_hash}",
+    "params={'theme':'technic', 'year':#{years}, 'pageSize': 200}"
+].join("&")
+
+additional_images_url_params = [
+        "apiKey=#{brickset_key}",
+        "setId=7575"
+    ].join("&")
+
+
+
+
+
+
+response = RestClient.get(additional_images_url+additional_images_url_params) 
+response_hash = JSON.parse(response.body)
+
+binding.pry
