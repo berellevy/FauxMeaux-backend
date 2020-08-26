@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+    has_secure_password
+
+    validates :username, uniqueness: {case_sensitive: false}
+
     has_many :follower_joins, class_name: "Follow", foreign_key: "followee_id"
     has_many :followers, through: :follower_joins
 
@@ -16,6 +20,13 @@ class User < ApplicationRecord
     def followees_ids
         followees.pluck(:id)
     end
+
+    def profile
+        p = self.as_json
+        p.delete("password_digest")
+        p
+    end
+    
     
     def feed
         posts = Post.order(updated_at: :desc).where(user_id: followees_ids)
