@@ -34,3 +34,13 @@ additional_images_url_params = [
 #     avatar: "https://media-exp1.licdn.com/dms/image/C5603AQFb-SyZRxKFnQ/profile-displayphoto-shrink_400_400/0?e=1603929600&v=beta&t=g0edTpUYarx7iS-t8C1UX715vHDZc6z9WfI2-2Ge6gA",
 #     bio: "I am the coolest instructor ever"
 # )
+
+
+User.all.each do |u|
+    3.times do |i|
+        u.posts.create(text: "postech number #{i}")
+    end
+
+
+
+end
