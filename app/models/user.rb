@@ -12,4 +12,20 @@ class User < ApplicationRecord
     def follow(user_id)
         followees << User.find(user_id)
     end
+
+    def followees_ids
+        followees.pluck(:id)
+    end
+    
+    def feed
+        posts = Post.order(updated_at: :desc).where(user_id: followees_ids)
+        posts.map do |p| 
+            p = p.as_json
+            p[:user] = User.find(p["user_id"]).as_json
+            p
+        end
+    end
+    
+
+    
 end
