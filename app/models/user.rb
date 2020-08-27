@@ -32,7 +32,7 @@ class User < ApplicationRecord
         posts = Post.order(updated_at: :desc).where(user_id: followees_ids)
         posts.map do |p| 
             p = p.as_json
-            p[:user] = User.find(p["user_id"]).as_json
+            p[:user] = User.find(p["user_id"]).profile
             p
         end
     end
