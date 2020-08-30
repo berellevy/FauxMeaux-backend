@@ -6,9 +6,9 @@ class Api::V1::UsersController < ApplicationController
         user = User.create(user_params)
         if user.valid?
             token = encode_token(user_id: user.id)
-            render json: { user: user.profile, jwt: token}, status: :created
+            render json: { user: user.profile, jwt: token, ok: true}
         else
-            render json: { errors: user.errors }, status: :not_acceptable
+            render json: { errors: user.errors } #status: :not_acceptable
         end   
     end
 
