@@ -10,13 +10,24 @@ class Api::V1::PostsController < ApplicationController
         if post.save
             render json: post.with_user
         end
-        
     end
+
+    def show
+        post = Post.find(params[:id])
+        render json: post.with_user
+    end
+
+    def user_index
+        user = User.find_by(username: params[:username])
+        render json: user.posts.order(updated_at: :desc)
+    end
+    
+    
 
     private
 
     def post_params
-        params.permit(:text, :img_url)
+        params.permit(:text, :img)
     end
     
     

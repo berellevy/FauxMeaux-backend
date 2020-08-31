@@ -12,10 +12,34 @@ class User < ApplicationRecord
     has_many :posts
     has_many :comments
 
-
-    def follow(user_id)
-        followees << User.find(user_id)
+    def is_following(user_id)
+        followees.any? { |f| f.id == user_id}
     end
+
+    def is_followed_by(user_id)
+        followers.any? { |f| f.id == user_id}
+    end
+    
+    def follow(user_id)
+        unless is_following(user_id)
+            followees << User.find(user_id)
+        end
+    end
+
+    def unfollow(user_id)
+            followees.delete(User.find_by(id: user_id))
+    end
+    
+
+    def profile_metrics
+        {
+            posts_qty: posts.length,
+            followers_qty: followers.length,
+            following_qty: followees.length
+
+        }
+    end
+    
 
     def followees_ids
         followees.pluck(:id)
@@ -24,6 +48,7 @@ class User < ApplicationRecord
     def profile
         p = self.as_json
         p.delete("password_digest")
+        p = p.merge(profile_metrics)
         p
     end
     
