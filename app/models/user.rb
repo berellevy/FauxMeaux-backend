@@ -55,10 +55,11 @@ class User < ApplicationRecord
     
     def feed
         posts = Post.order(updated_at: :desc).where(user_id: followees_ids)
-        posts.map do |p| 
-            p = p.as_json
-            p[:user] = User.find(p["user_id"]).profile
-            p
+        posts.map do |post| 
+            post_hash = post.as_json
+            post_hash[:user] = User.find(post_hash["user_id"]).profile
+            post_hash[:comments] = post.comments.with_users
+            post_hash
         end
     end
     

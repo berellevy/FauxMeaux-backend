@@ -36,11 +36,9 @@ additional_images_url_params = [
 # )
 
 
-User.all.each do |u|
-    3.times do |i|
-        u.posts.create(text: "postech number #{i}")
-    end
-
-
-
+Post.all.each do |post|
+    post.comments.create(
+        text: "hellow",
+        user: User.all.sample
+    )
 end
