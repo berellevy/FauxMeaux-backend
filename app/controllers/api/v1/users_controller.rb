@@ -29,7 +29,16 @@ class Api::V1::UsersController < ApplicationController
         user_hash[:is_current_user] = user == current_user
         user_hash
     end
+
+    def followers
+        followers = User.find_by(username: params[:username]).followers.map { |u| u.profile}
+        render json: followers
+    end
     
+    def followees
+        followees = User.find_by(username: params[:username]).followees.map { |u| u.profile}
+        render json: followees
+    end
     
 
     def user_profile
@@ -46,6 +55,12 @@ class Api::V1::UsersController < ApplicationController
             render json: user_profile_details(user.username)
         end
     end
+
+    def search
+        users = User.search(search_params[:query]).map { |user| user.profile }
+        render json: users
+    end
+    
     
 
     private
@@ -57,6 +72,11 @@ class Api::V1::UsersController < ApplicationController
     def toggle_follow_params
         params.require(:user).permit(:username)    
     end
+
+    def search_params
+        params.permit(:query)
+    end
+    
 
 
     

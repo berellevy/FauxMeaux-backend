@@ -62,6 +62,15 @@ class User < ApplicationRecord
             post_hash
         end
     end
+
+    ##  CLASS METHODS  ##
+
+    def self.search(query)
+		self.where(
+            "lower(users.username) LIKE :query",
+            query: "%#{query}%".downcase
+        )
+	end
     
 
     
