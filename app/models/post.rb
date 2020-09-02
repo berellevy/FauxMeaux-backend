@@ -14,6 +14,14 @@ class Post < ApplicationRecord
   def self.with_users_and_comments
     all.map { |p| p.with_user_and_comments}
   end
+
+  def metrics
+    {
+      views: self.views.length,
+      comments: self.comments.length
+    }
+  end
+  
   
 
 
