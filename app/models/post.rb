@@ -1,11 +1,13 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments
+  has_many :views
 
   def with_user_and_comments
     p = self.as_json
     p[:user] = user
-    p[:comments] = comments.map { |c| c.with_user}
+    # p[:comments] = comments.map { |c| c.with_user}
+    p[:comments] = comments.with_users
     p
   end
 

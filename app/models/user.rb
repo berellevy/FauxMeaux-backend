@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
     has_many :posts
     has_many :comments
+    has_many :views
+
 
     def is_following(user_id)
         followees.any? { |f| f.id == user_id}
@@ -52,7 +54,6 @@ class User < ApplicationRecord
         p
     end
     
-    
     def feed
         posts = Post.order(updated_at: :desc).where(user_id: followees_ids)
         posts.map do |post| 
@@ -61,6 +62,11 @@ class User < ApplicationRecord
             post_hash[:comments] = post.comments.with_users
             post_hash
         end
+    end
+
+    def feed
+        feed = Post.order(updated_at: :desc).where(user_id: followees_ids)
+        View.batch_create(self, feed)
     end
 
     ##  CLASS METHODS  ##
