@@ -12,7 +12,7 @@ themes_url = base_url + "/getThemes?"
 sets_url = base_url + "/getSets?"
 additional_images_url = base_url + "/getAdditionalImages?"
 
-years = "'" + (2010..2020).to_a.join(",")+"'"
+years = "'" + (2012..2020).to_a.join(",")+"'"
 
 get_sets_url_params = [
     "apiKey=#{brickset_key}",
@@ -25,20 +25,15 @@ additional_images_url_params = [
         "setId=7575"
     ].join("&")
 
-# response = RestClient.get(additional_images_url+additional_images_url_params) 
-# response_hash = JSON.parse(response.body)
+response = RestClient.get(sets_url+get_sets_url_params) 
+response_hash = JSON.parse(response.body)
 
-# User.create(
-#     name: "greg",
-#     username: "greg",
-#     avatar: "https://media-exp1.licdn.com/dms/image/C5603AQFb-SyZRxKFnQ/profile-displayphoto-shrink_400_400/0?e=1603929600&v=beta&t=g0edTpUYarx7iS-t8C1UX715vHDZc6z9WfI2-2Ge6gA",
-#     bio: "I am the coolest instructor ever"
-# )
-
-
-Post.all.each do |post|
-    post.comments.create(
-        text: "hellow",
-        user: User.all.sample
-    )
+response_hash["sets"].each do |set|
+    image = set["image"]["imageURL"]
+    Ad.create(img: image)
+    print "."
 end
+
+
+
+

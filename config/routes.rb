@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         resources :posts, only: [:index, :create, :show]
         resources :users, only: [:create, :index]
         resources :comments, only: [:create]
+        resources :views, only: [:update]
         post '/login', to: 'auth#create'
         get '/profile', to: 'users#profile'
         post '/togglefollow', to: 'users#toggle_follow'

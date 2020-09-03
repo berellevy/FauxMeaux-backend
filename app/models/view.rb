@@ -42,9 +42,16 @@ class View < ApplicationRecord
     view_hash
   end
 
+  def metrics 
+    metrics = post.metrics
+    metrics[:user] = post.user.profile
+    metrics[:view_id] = id
+    metrics
+  end
+
   def locked_view
     view_hash = self.as_json
-    view_hash[:metrics] = post.metrics
+    view_hash[:metrics] = metrics
     view_hash
   end
 
