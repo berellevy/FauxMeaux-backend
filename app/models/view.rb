@@ -1,6 +1,7 @@
 class View < ApplicationRecord
   belongs_to :post
   belongs_to :user
+  belongs_to :ad, optional: true
   validates :post, uniqueness: { scope: :user}
 
   def is_young
@@ -14,7 +15,7 @@ class View < ApplicationRecord
 
   def locked
     if is_young || is_own_post
-      return false
+      return "unlocked"
     else
       super
     end
@@ -23,7 +24,7 @@ class View < ApplicationRecord
   def self.create(post, user)
     view = View.find_by(post: post, user: user)
     unless view
-      view = View.new(post: post, user: user)
+      view = View.new(post: post, user: user, ad: Ad.all.sample)
       view.save
     end
     view.render
@@ -39,6 +40,7 @@ class View < ApplicationRecord
   def unlocked_view
     view_hash = self.as_json
     view_hash[:post] = post.with_user_and_comments
+    view_hash[:ad] = ad.as_json
     view_hash
   end
 
@@ -52,11 +54,21 @@ class View < ApplicationRecord
   def locked_view
     view_hash = self.as_json
     view_hash[:metrics] = metrics
+    view_hash[:ad] = ad.as_json
     view_hash
   end
 
   def render
-    locked ? locked_view : unlocked_view
+    case locked
+    when "locked"
+      return locked_view
+    when "ad"
+      return unlocked_view
+    when "unlocked"
+      return unlocked_view
+    else
+      return locked_view
+    end
   end
   
   

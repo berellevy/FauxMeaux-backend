@@ -25,15 +25,21 @@ additional_images_url_params = [
         "setId=7575"
     ].join("&")
 
-response = RestClient.get(sets_url+get_sets_url_params) 
-response_hash = JSON.parse(response.body)
+# response = RestClient.get(sets_url+get_sets_url_params) 
+# response_hash = JSON.parse(response.body)
 
-response_hash["sets"].each do |set|
-    image = set["image"]["imageURL"]
-    Ad.create(img: image)
-    print "."
+# response_hash["sets"].each do |set|
+#     image = set["image"]["imageURL"]
+#     Ad.create(img: image)
+#     print "."
+# end
+
+
+View.all.each do |v|
+    if v.locked == "true"
+        v.locked = "locked"
+        v.save
+    end
+
 end
-
-
-
 

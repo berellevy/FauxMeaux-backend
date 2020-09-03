@@ -23,11 +23,6 @@ class Api::V1::PostsController < ApplicationController
         user = User.find_by(username: params[:username])
         posts = user.posts.order(updated_at: :desc)
         views = View.batch_create(current_user, posts)
-        # posts_hash = posts.map do |post| 
-        #     post_hash = post.as_json
-        #     post_hash[:comments] = post.comments.with_users
-        #     post_hash
-        # end
         render json: views
     end
     
