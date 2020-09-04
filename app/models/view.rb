@@ -5,7 +5,7 @@ class View < ApplicationRecord
   validates :post, uniqueness: { scope: :user}
 
   def is_young
-    post.created_at > 1.day.ago
+    post.is_young
   end
 
   def is_own_post
@@ -14,7 +14,7 @@ class View < ApplicationRecord
   
 
   def locked
-    if is_young || is_own_post
+    if is_young || is_own_post || viewed
       return "unlocked"
     else
       super
@@ -34,13 +34,13 @@ class View < ApplicationRecord
     posts_collection.map do |post|
       create(post, user)
     end
-    
   end
 
   def unlocked_view
     view_hash = self.as_json
     view_hash[:post] = post.with_user_and_comments
     view_hash[:ad] = ad.as_json
+    view_hash[:is_young] = is_young
     view_hash
   end
 

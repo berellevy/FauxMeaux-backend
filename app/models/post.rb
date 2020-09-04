@@ -6,7 +6,6 @@ class Post < ApplicationRecord
   def with_user_and_comments
     p = self.as_json
     p[:user] = user
-    # p[:comments] = comments.map { |c| c.with_user}
     p[:comments] = comments.with_users
     p
   end
@@ -20,6 +19,10 @@ class Post < ApplicationRecord
       views: self.views.length,
       comments: self.comments.length
     }
+  end
+
+  def is_young
+    created_at > 1.day.ago
   end
   
   
