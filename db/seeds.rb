@@ -35,11 +35,7 @@ additional_images_url_params = [
 # end
 
 
-View.all.each do |v|
-    if v.locked == "true"
-        v.locked = "locked"
-        v.save
-    end
-
-end
+Post.last.comments.destroy_all
+Post.last.views.destroy_all
+Post.last.delete
 
