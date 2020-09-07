@@ -35,7 +35,3 @@ additional_images_url_params = [
 # end
 
 
-Post.last.comments.destroy_all
-Post.last.views.destroy_all
-Post.last.delete
-

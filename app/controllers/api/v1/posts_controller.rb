@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
     def index
-        feed = current_user.feed
+        feed = current_user.feed(params[:page_num].to_i)
         render json: feed
     end
 
@@ -20,8 +20,11 @@ class Api::V1::PostsController < ApplicationController
     end
 
     def user_index
+        page_num = params[:page_num].to_i
+        page_qty = 5
+        offset = page_num * page_qty
         user = User.find_by(username: params[:username])
-        posts = user.posts.order(updated_at: :desc)
+        posts = user.posts.order(updated_at: :desc).limit(page_qty).offset(offset)
         views = View.batch_create(current_user, posts)
         render json: views
     end

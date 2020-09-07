@@ -54,18 +54,11 @@ class User < ApplicationRecord
         p
     end
     
-    def feed
-        posts = Post.order(updated_at: :desc).where(user_id: followees_ids)
-        posts.map do |post| 
-            post_hash = post.as_json
-            post_hash[:user] = User.find(post_hash["user_id"]).profile
-            post_hash[:comments] = post.comments.with_users
-            post_hash
-        end
-    end
 
-    def feed
-        feed = Post.order(updated_at: :desc).where(user_id: followees_ids)
+    def feed(page_num)
+        page_qty = 5
+        offset = page_num * page_qty
+        feed = Post.order(updated_at: :desc).where(user_id: followees_ids).limit(page_qty).offset(offset)
         View.batch_create(self, feed)
     end
 
