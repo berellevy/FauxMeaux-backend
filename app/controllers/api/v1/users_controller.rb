@@ -12,6 +12,17 @@ class Api::V1::UsersController < ApplicationController
         end   
     end
 
+    def update
+        user = User.find(params[:id])
+        if user == current_user
+            user.avatar = avatar_param[:avatar]
+            user.save
+            render json: {user: user.profile}
+        else
+            render json: { error: :unauthorized}
+        end
+    end
+
     def profile
         render json: { user: current_user.profile}, status: :accepted
     end
@@ -67,6 +78,10 @@ class Api::V1::UsersController < ApplicationController
 
     def user_params
         params.require(:user).permit(:name, :username, :password)
+    end
+
+    def avatar_param
+        params.permit(:avatar)
     end
 
     def toggle_follow_params

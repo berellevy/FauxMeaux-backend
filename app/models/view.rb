@@ -41,6 +41,7 @@ class View < ApplicationRecord
     view_hash[:post] = post.with_user_and_comments
     view_hash[:ad] = ad.as_json
     view_hash[:is_young] = is_young
+    view_hash[:is_own_post] = is_own_post
     view_hash
   end
 
@@ -48,6 +49,7 @@ class View < ApplicationRecord
     metrics = post.metrics
     metrics[:user] = post.user.profile
     metrics[:view_id] = id
+    metrics[:post_date] = post.updated_at
     metrics
   end
 

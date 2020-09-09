@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         resources :posts, only: [:create, :show]
-        resources :users, only: [:create, :index]
+        resources :users, only: [:create, :index, :update]
         resources :comments, only: [:create]
         resources :views, only: [:update]
         get '/feed/:page_num', to: 'posts#index'
