@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
         if user == current_user
             user.avatar = avatar_param[:avatar]
             user.save
-            render json: {user: user.profile}
+            render json: {user: user_profile_details(user.username)}
         else
             render json: { error: :unauthorized}
         end

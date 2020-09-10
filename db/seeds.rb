@@ -35,3 +35,18 @@ additional_images_url_params = [
 # end
 
 
+# delete test users
+# users = User.where('username LIKE ?', "berel%").where.not(username: 'berel')
+
+# users.each do |user|
+#     puts user.username
+#     user.posts.each do |post|
+#         post.comments.destroy_all
+#         post.views.destroy_all
+#         post.delete
+#     end
+#     user.posts.destroy_all
+#     user.comments.destroy_all
+#     user.views.destroy_all
+#     user.delete
+# end
