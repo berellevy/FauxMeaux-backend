@@ -72,8 +72,6 @@ class Api::V1::UsersController < ApplicationController
         render json: users
     end
     
-    
-
     private
 
     def user_params
@@ -91,10 +89,4 @@ class Api::V1::UsersController < ApplicationController
     def search_params
         params.permit(:query)
     end
-    
-
-
-    
-    
-    
 end
