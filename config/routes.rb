@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
     namespace :api do
       namespace :v1 do
+        get '/test', to: "views#test"
         resources :posts, only: [:create, :show]
         resources :users, only: [:create, :index, :update]
         resources :comments, only: [:create]

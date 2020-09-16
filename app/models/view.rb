@@ -36,15 +36,6 @@ class View < ApplicationRecord
     end
   end
 
-  def unlocked_view
-    view_hash = self.as_json
-    view_hash[:post] = post.with_user_and_comments
-    view_hash[:ad] = ad.as_json
-    view_hash[:is_young] = is_young
-    view_hash[:is_own_post] = is_own_post
-    view_hash
-  end
-
   def metrics 
     metrics = post.metrics
     metrics[:user] = post.user.profile
@@ -57,6 +48,15 @@ class View < ApplicationRecord
     view_hash = self.as_json
     view_hash[:metrics] = metrics
     view_hash[:ad] = ad.as_json
+    view_hash
+  end
+
+  def unlocked_view
+    view_hash = self.as_json
+    view_hash[:post] = post.with_user_and_comments
+    view_hash[:ad] = ad.as_json
+    view_hash[:is_young] = is_young
+    view_hash[:is_own_post] = is_own_post
     view_hash
   end
 

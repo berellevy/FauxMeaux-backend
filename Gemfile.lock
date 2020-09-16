@@ -61,7 +61,9 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    awesome_print (1.8.0)
     bcrypt (3.1.15)
+    bcrypt (3.1.15-java)
     bootsnap (1.4.8)
       msgpack (~> 1.0)
     bootsnap (1.4.8-java)
@@ -238,7 +240,8 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
-  active_model_serializers (~> 0.10.10)
+  active_model_serializers (~> 0.10.0)
+  awesome_print
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug

@@ -13,7 +13,6 @@ class User < ApplicationRecord
     has_many :comments
     has_many :views
 
-
     def is_following(user_id)
         followees.any? { |f| f.id == user_id}
     end
@@ -53,7 +52,6 @@ class User < ApplicationRecord
         p = p.merge(profile_metrics)
         p
     end
-    
 
     def feed(page_num)
         page_qty = 5
