@@ -12,7 +12,6 @@ class View < ApplicationRecord
     user == post.user
   end
   
-
   def locked
     if is_young || is_own_post || viewed
       return "unlocked"
@@ -36,7 +35,7 @@ class View < ApplicationRecord
     end
   end
 
-  def metrics 
+  def metrics
     metrics = post.metrics
     metrics[:user] = post.user.profile
     metrics[:view_id] = id
