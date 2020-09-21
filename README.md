@@ -1,43 +1,9 @@
-# README
+# FauxMeaux Backend
 
-## Completed
+Frontend is [here](https://github.com/berellevy/fauxmeaux_frontend)
 
-- brickset api rough setup
+[Short Demo with differentiators](https://youtu.be/pA0NRgoMUy0)
 
-- users & follow capability
+[Long demo with full functionality](https://youtu.be/a7_5xcMpueQ)
 
-
-## To Do
-
-- set up posts
-    - test relationships with users
-
-- set up comments
-    - test rel. with users and posts
-
-
-
-
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Check out the [frontend](https://github.com/berellevy/fauxmeaux_frontend) for the full product description.
