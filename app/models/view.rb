@@ -13,9 +13,9 @@ class View < ApplicationRecord
   end
   
 
-  def locked
+  def ad_view
     if is_young || is_own_post || viewed
-      return "unlocked"
+      return false
     else
       super
     end
@@ -24,7 +24,7 @@ class View < ApplicationRecord
   def self.create(post, user)
     view = View.find_by(post: post, user: user)
     unless view
-      view = View.new(post: post, user: user, ad: Ad.all.sample)
+      view = View.new(post: post, user: user, ad: Ad.all.sample, ad_view: true)
       view.save
     end
     view.render
@@ -36,15 +36,6 @@ class View < ApplicationRecord
     end
   end
 
-  def unlocked_view
-    view_hash = self.as_json
-    view_hash[:post] = post.with_user_and_comments
-    view_hash[:ad] = ad.as_json
-    view_hash[:is_young] = is_young
-    view_hash[:is_own_post] = is_own_post
-    view_hash
-  end
-
   def metrics 
     metrics = post.metrics
     metrics[:user] = post.user.profile
@@ -53,7 +44,16 @@ class View < ApplicationRecord
     metrics
   end
 
-  def locked_view
+  def post_view_render
+    view_hash = self.as_json
+    view_hash[:post] = post.with_user_and_comments
+    view_hash[:ad] = ad.as_json
+    view_hash[:is_young] = is_young
+    view_hash[:is_own_post] = is_own_post
+    view_hash
+  end
+
+  def ad_view_render
     view_hash = self.as_json
     view_hash[:metrics] = metrics
     view_hash[:ad] = ad.as_json
@@ -61,16 +61,7 @@ class View < ApplicationRecord
   end
 
   def render
-    case locked
-    when "locked"
-      return locked_view
-    when "ad"
-      return unlocked_view
-    when "unlocked"
-      return unlocked_view
-    else
-      return locked_view
-    end
+    ad_view ? ad_view_render : post_view_render
   end
   
   
