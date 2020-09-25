@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         resources :users, only: [:create, :index, :update]
         resources :comments, only: [:create]
         resources :views, only: [:update]
+        get '/backload_post/:view_id', to: "views#backload_post"
         get '/feed/:page_num', to: 'posts#index'
         post '/login', to: 'auth#create'
         get '/profile', to: 'users#profile'
