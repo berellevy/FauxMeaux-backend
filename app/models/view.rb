@@ -21,11 +21,20 @@ class View < ApplicationRecord
     end
   end 
 
+  def self.counter(user)
+    user.views.count % 3 == 0
+  end
+
   def self.create(post, user)
     view = View.find_by(post: post, user: user)
-    unless view
-      view = View.new(post: post, user: user, ad: Ad.all.sample, ad_view: true)
-      view.save
+    if !view 
+      if self.counter(user) 
+        view = View.new(post: post, user: user, ad: Ad.all.sample, ad_view: true)
+        view.save
+      else 
+        view = View.new(post: post, user: user, ad: Ad.all.sample)
+        view.save
+      end
     end
     view.render
   end
